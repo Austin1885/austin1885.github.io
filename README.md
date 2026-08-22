@@ -7,8 +7,10 @@ map of Austin sunk in darkness, explored by a wandering pool of gaslight.
 
 ## How the page behaves
 
-- The lantern tours the seven murder sites on its own, in chronological order,
-  lingering at each long enough for its story card and clip to play out.
+- The lantern tours six of the seven murder sites on its own, in chronological
+  order, lingering at each long enough for its story card and clip to play out.
+  (One site — Eliza Shelley's — is pointed to from the neighboring stop's card
+  instead; the full walking tour app covers all seven.)
 - Each site smolders in the dark and flares when the light reaches it, opening
   a card: the victim's name, the date, the address, a short map clip, and a
   link to that stop's episode.
@@ -24,7 +26,7 @@ map of Austin sunk in darkness, explored by a wandering pool of gaslight.
   `hotspots.js` (when a site counts as lit), `storyCard.js` (the cards),
   `sites.js` (where the seven sites sit on the map), `main.js` (wires it all).
 - `data/stops.js` — the stop data: victims, dates, addresses, episode links.
-- `assets/` — the 1887 map image and the seven short card clips.
+- `assets/` — the 1887 map image and the short card clips.
 
 Everything is plain JavaScript served as static files — no build step, no
 framework. three.js loads from a CDN. To run it locally, serve the folder with
@@ -37,3 +39,7 @@ murders in Austin, Texas. Most of the victims were Black servant women whose
 deaths were under-investigated in their own time; the project's rule throughout
 is a respectful memorial tone — victims led with as people, no gore, no
 invented details, and lore always labeled as lore.
+
+## Contact
+
+**contact@austin1885.city**

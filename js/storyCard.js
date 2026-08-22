@@ -41,6 +41,7 @@ export function createStoryCard() {
       <div class="date">${formatDate(props.date)} · ${props.title}</div>
       <div class="addr">${props.period_address || props.historic_address || ''}</div>
       <div class="blurb">${firstSentence}</div>
+      ${props.web_extra ? `<div class="blurb">${props.web_extra}</div>` : ''}
       ${video}`;
     el.querySelector('.close').addEventListener('click', unpin);
     // replay: rewind the card's own video — pure DOM, touches nothing else
