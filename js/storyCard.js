@@ -14,18 +14,15 @@ export function createStoryCard() {
   }
 
   function fill(props) {
-    // Dispose the outgoing video BEFORE innerHTML discards it. A dropped <video>
-    // keeps its hardware decoder until GC; churn enough cards and the browser's
-    // decoder pool runs dry — the next clip simply stalls (the biggest file,
-    // Eliza Shelley's, always hit that wall first). Pause + clear src + load()
-    // is the standard way to release the decoder immediately.
-    const old = el.querySelector('video');
-    if (old) { old.pause(); old.removeAttribute('src'); old.load(); }
-    // orders 1-7 have a compressed flyover loop (web/assets/clips/, see README);
-    // onerror removes the element so a missing file never shows a broken box
+    // The clip is an animated WebP in a plain <img> — deliberately NOT a
+    // <video>. Hardware video decoders share the GPU with WebGL (and whatever
+    // else the machine runs); under load the decoder starved and clips froze
+    // until a window switch reset it. Animated images decode on the CPU, so
+    // that whole failure mode is gone. onerror removes the element so a
+    // missing file never shows a broken box.
     const clip = props.order >= 1 && props.order <= 7
-      ? `<video class="clip" src="assets/clips/stop-0${props.order}.mp4"
-           muted playsinline autoplay onerror="this.remove()"></video>
+      ? `<img class="clip" src="assets/clips/stop-0${props.order}.webp" alt=""
+           onerror="this.remove()">
          <div class="cliprow">
            <button class="replay" title="Play the transformation again">↻ replay</button>
            <span class="clipcap">the map becomes the city</span>
@@ -44,10 +41,10 @@ export function createStoryCard() {
       ${props.web_extra ? `<div class="blurb">${props.web_extra}</div>` : ''}
       ${video}`;
     el.querySelector('.close').addEventListener('click', unpin);
-    // replay: rewind the card's own video — pure DOM, touches nothing else
+    // replay: re-setting the src restarts an animated image from frame one
     el.querySelector('.replay')?.addEventListener('click', () => {
-      const v = el.querySelector('video');
-      if (v) { v.currentTime = 0; v.play(); }
+      const img = el.querySelector('img.clip');
+      if (img) { const s = img.src; img.src = ''; img.src = s; }
     });
   }
 
@@ -69,12 +66,13 @@ export function createStoryCard() {
     if (pinned) return;
     fill(props);
     el.style.display = 'block';
+    document.body.classList.add('card-open'); // promo pills fade out (index.html CSS)
     place(x, y, true); // snap on first show — no glide from the previous card's spot
   }
   function hide() {
     if (pinned) return;
-    el.querySelector('video')?.pause(); // display:none alone doesn't stop playback
     el.style.display = 'none';
+    document.body.classList.remove('card-open');
   }
   function pin(props, x, y) {
     pinned = false; show(props, x, y); // refill, then lock
@@ -83,8 +81,8 @@ export function createStoryCard() {
   }
   function unpin() {
     pinned = false; el.classList.remove('pinned');
-    el.querySelector('video')?.pause();
     el.style.display = 'none';
+    document.body.classList.remove('card-open');
     if (onUnpinCb) onUnpinCb();
   }
 

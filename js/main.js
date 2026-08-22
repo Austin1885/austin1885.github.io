@@ -38,6 +38,9 @@ const sites = calibrated.map((sq) => {
   return { ...sq, props: { ...stop.properties, web_extra: EXTRA_LINES[sq.order] || '' } };
 }).filter(Boolean).sort((a, b) => a.order - b.order);
 
+// Warm the browser cache so each card's clip is ready the instant it opens.
+sites.forEach((s) => { const img = new Image(); img.src = `assets/clips/stop-0${s.order}.webp`; });
+
 let ctx;
 try {
   ctx = createScene(document.getElementById('scene'));
