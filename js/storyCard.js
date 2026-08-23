@@ -20,8 +20,10 @@ export function createStoryCard() {
     // until a window switch reset it. Animated images decode on the CPU, so
     // that whole failure mode is gone. onerror removes the element so a
     // missing file never shows a broken box.
+    // ?v= busts browser caches when clips are re-encoded — bump it (and the
+    // matching one in main.js) whenever the .webp files change.
     const clip = props.order >= 1 && props.order <= 7
-      ? `<img class="clip" src="assets/clips/stop-0${props.order}.webp" alt=""
+      ? `<img class="clip" src="assets/clips/stop-0${props.order}.webp?v=2" alt=""
            onerror="this.remove()">
          <div class="cliprow">
            <button class="replay" title="Play the transformation again">↻ replay</button>
