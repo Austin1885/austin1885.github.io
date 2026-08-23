@@ -36,7 +36,7 @@ export function createStoryCard() {
       : '';
     el.innerHTML = `<span class="close" title="Close">✕</span>
       ${clip}
-      <h3>${props.victim}</h3>
+      <h3><span class="num">${props.order}</span>${props.victim}</h3>
       <div class="date">${formatDate(props.date)} · ${props.title}</div>
       <div class="addr">${props.period_address || props.historic_address || ''}</div>
       <div class="blurb">${firstSentence}</div>

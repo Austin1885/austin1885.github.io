@@ -45,6 +45,9 @@
     color: var(--amber); font-family: Georgia, serif; font-size: 11px; padding: 2px 9px; cursor: pointer; }
   #story-card .replay:hover { border-color: var(--amber); color: var(--lit); }
   #story-card h3 { margin: 0 0 2px; color: var(--amber); font-size: 18px; font-weight: normal; }
+  /* tour order — the lantern visits the sites in this sequence (1 → 7) */
+  #story-card h3 .num { opacity: .55; font-variant-numeric: tabular-nums; margin-right: .5em; }
+  #story-card h3 .num::after { content: "·"; margin-left: .4em; }
   #story-card .date { color: var(--dim); font-size: 13px; margin-bottom: 8px; }
   #story-card .addr { font-size: 14px; margin-bottom: 8px; }
   #story-card .blurb { font-size: 13px; line-height: 1.45; color: var(--parchment); margin-bottom: 10px; }
