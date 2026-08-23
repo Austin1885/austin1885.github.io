@@ -7,10 +7,8 @@ map of Austin sunk in darkness, explored by a wandering pool of gaslight.
 
 ## How the page behaves
 
-- The lantern tours six of the seven murder sites on its own, in chronological
-  order, lingering at each long enough for its story card and clip to play out.
-  (One site — Eliza Shelley's — is pointed to from the neighboring stop's card
-  instead; the full walking tour app covers all seven.)
+- The lantern tours the seven murder sites on its own, in chronological order,
+  lingering at each long enough for its story card and clip to play out.
 - Each site smolders in the dark and flares when the light reaches it, opening
   a card: the victim's name, the date, the address, a short map clip, and a
   link to that stop's episode.

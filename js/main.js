@@ -20,15 +20,13 @@ const stops = (window.AUSTIN1885_STOPS || { features: [] }).features;
 const calibrated = window.AUSTIN1885_SITES || [];
 
 // Web-page-only adjustments — the walking-tour app is untouched by these.
-// This page is an invitation to the app; it has to run without a hiccup.
-// Stop 2 (Eliza Shelley) is left off: her card's clip kept stalling in some
-// browsers. Her site is one block south of Mary Ramey's stop, so Mary's card
-// carries a line pointing there (web_extra below), and the app tells her stop
-// in full.
-const OMIT_ORDERS = new Set([2]);
-const EXTRA_LINES = {
-  4: 'One block south, at San Jacinto &amp; Cypress, stood the cabin where Eliza Shelley was killed in May 1885. Her stop is told in full in the walking tour.',
-};
+// OMIT_ORDERS hides a stop from this page; EXTRA_LINES adds a sentence to a
+// card (rendered as web_extra by storyCard.js). Both are empty: stop 2 was
+// briefly omitted while its clip froze some browsers, and restored once the
+// real cause (hardware video decoding) was removed by switching every clip
+// to animated WebP.
+const OMIT_ORDERS = new Set();
+const EXTRA_LINES = {};
 
 // join QGIS squares → stop properties by `order`
 const sites = calibrated.map((sq) => {
