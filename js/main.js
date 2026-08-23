@@ -38,7 +38,7 @@ const sites = calibrated.map((sq) => {
 
 // Warm the browser cache so each card's clip is ready the instant it opens.
 // ?v= must match storyCard.js — bump both when the .webp files change.
-sites.forEach((s) => { const img = new Image(); img.src = `assets/clips/stop-0${s.order}.webp?v=2`; });
+sites.forEach((s) => { const img = new Image(); img.src = `assets/clips/stop-0${s.order}.webp?v=3`; });
 
 let ctx;
 try {
