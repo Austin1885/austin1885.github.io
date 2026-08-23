@@ -42,7 +42,7 @@ const sites = calibrated.map((sq) => {
 // line with the full-res map. Starts once the preview map is on screen.
 // ?v= must match storyCard.js — bump both when the .webp files change.
 function preloadClips() {
-  const queue = sites.map((s) => `assets/clips/stop-0${s.order}.webp?v=6`);
+  const queue = sites.map((s) => `assets/clips/stop-0${s.order}.webp?v=7`);
   const next = () => {
     const src = queue.shift();
     if (!src) return;
