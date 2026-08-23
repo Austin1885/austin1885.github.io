@@ -68,13 +68,11 @@ export function createStoryCard() {
     if (pinned) return;
     fill(props);
     el.style.display = 'block';
-    document.body.classList.add('card-open'); // promo pills fade out (index.html CSS)
     place(x, y, true); // snap on first show — no glide from the previous card's spot
   }
   function hide() {
     if (pinned) return;
     el.style.display = 'none';
-    document.body.classList.remove('card-open');
   }
   function pin(props, x, y) {
     pinned = false; show(props, x, y); // refill, then lock
@@ -84,7 +82,6 @@ export function createStoryCard() {
   function unpin() {
     pinned = false; el.classList.remove('pinned');
     el.style.display = 'none';
-    document.body.classList.remove('card-open');
     if (onUnpinCb) onUnpinCb();
   }
 
