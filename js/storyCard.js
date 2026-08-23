@@ -23,7 +23,7 @@ export function createStoryCard() {
     // ?v= busts browser caches when clips are re-encoded — bump it (and the
     // matching one in main.js) whenever the .webp files change.
     const clip = props.order >= 1 && props.order <= 7
-      ? `<img class="clip" src="assets/clips/stop-0${props.order}.webp?v=3" alt=""
+      ? `<img class="clip" src="assets/clips/stop-0${props.order}.webp?v=4" alt=""
            onerror="this.remove()">
          <div class="cliprow">
            <button class="replay" title="Play the transformation again">↻ replay</button>
