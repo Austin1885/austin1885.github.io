@@ -6,8 +6,15 @@
 import * as THREE from 'three';
 
 export function createLantern({ uniforms, sites }) {
-  const target = new THREE.Vector2(0.5, 0.5);
-  const pos = new THREE.Vector2(0.5, 0.5);
+  // Start just outside stop 1's flare radius, toward the map center, so the
+  // page opens with the light gliding into the first site within a couple of
+  // seconds. Starting mid-map settled the light instantly and flared whichever
+  // site happened to be nearest (Eula Phillips') before the tour even began.
+  const start = sites.length
+    ? new THREE.Vector2(sites[0].u + 0.12, sites[0].v)
+    : new THREE.Vector2(0.5, 0.5);
+  const target = start.clone();
+  const pos = start.clone();
   let held = null;                 // where a click parked the light; pauses the tour
   let tourIndex = 0, tourDwell = 0;
   let sinceAdvance = 0;            // watchdog: a healthy visit is ~20s (glide+dwell)
