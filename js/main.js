@@ -37,8 +37,12 @@ const sites = calibrated.map((sq) => {
 }).filter(Boolean).sort((a, b) => a.order - b.order);
 
 // Warm the browser cache so each card's clip is ready the instant it opens.
+// Called only after the map texture has arrived (below) so ~8 MB of clips
+// don't compete with the one download the visitor actually needs to see first.
 // ?v= must match storyCard.js — bump both when the .webp files change.
-sites.forEach((s) => { const img = new Image(); img.src = `assets/clips/stop-0${s.order}.webp?v=4`; });
+function preloadClips() {
+  sites.forEach((s) => { const img = new Image(); img.src = `assets/clips/stop-0${s.order}.webp?v=5`; });
+}
 
 let ctx;
 try {
@@ -50,6 +54,7 @@ try {
 
 if (ctx) {
   loadMapPlane(ctx.scene, (mapPlane) => {
+    preloadClips(); // map is in — now fetch the clips in the background
     ctx.setMapSize(mapPlane.planeW, mapPlane.planeD);
     const card = createStoryCard();
     const lantern = createLantern({ uniforms: mapPlane.uniforms, sites });
