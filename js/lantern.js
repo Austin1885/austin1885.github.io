@@ -10,7 +10,7 @@ export function createLantern({ uniforms, sites }) {
   const pos = new THREE.Vector2(0.5, 0.5);
   let held = null;                 // where a click parked the light; pauses the tour
   let tourIndex = 0, tourDwell = 0;
-  let sinceAdvance = 0;            // watchdog: a healthy visit is ~18s (glide+dwell)
+  let sinceAdvance = 0;            // watchdog: a healthy visit is ~21s (glide+dwell)
 
   return {
     pos, // eased position in UV — hotspots read this to know what's lit
@@ -30,7 +30,8 @@ export function createLantern({ uniforms, sites }) {
         sinceAdvance += dt;
         if (Math.hypot(s.u - target.x, s.v - target.y) < 0.01) {
           tourDwell += dt;
-          if (tourDwell > 8) { tourDwell = 0; tourIndex++; sinceAdvance = 0; } // clip + a beat
+          // clip = 3s map hold + ~7s timelapse, plus a beat to take it in
+          if (tourDwell > 11) { tourDwell = 0; tourIndex++; sinceAdvance = 0; }
         } else {
           target.lerp(new THREE.Vector2(s.u, s.v), Math.min(1, dt * 0.38)); // unhurried
         }
