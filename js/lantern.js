@@ -30,8 +30,8 @@ export function createLantern({ uniforms, sites }) {
         sinceAdvance += dt;
         if (Math.hypot(s.u - target.x, s.v - target.y) < 0.01) {
           tourDwell += dt;
-          // clip = 2s flyover + ~6s timelapse, plus a beat to take it in
-          if (tourDwell > 10) { tourDwell = 0; tourIndex++; sinceAdvance = 0; }
+          // clip = 2s flyover + 1s street hold + ~6s timelapse, plus a beat to take it in
+          if (tourDwell > 11) { tourDwell = 0; tourIndex++; sinceAdvance = 0; }
         } else {
           target.lerp(new THREE.Vector2(s.u, s.v), Math.min(1, dt * 0.38)); // unhurried
         }

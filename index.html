@@ -26,7 +26,7 @@
     background: radial-gradient(ellipse at 50% 42%, transparent 45%, rgba(5,7,10,0.75) 100%); }
 
   #title { position: fixed; top: 28px; left: 0; right: 0; text-align: center; pointer-events: none; }
-  #title h1 { margin: 0; font-size: clamp(28px, 5vw, 52px); letter-spacing: 0.18em;
+  #title h1 { margin: 0; font-size: clamp(24px, 4vw, 42px); letter-spacing: 0.18em;
     color: var(--lit); text-shadow: 0 2px 12px rgba(0,0,0,0.8); font-weight: normal; }
   #title p { margin: 6px 0 0; color: var(--amber); letter-spacing: 0.3em; font-variant: small-caps;
     font-size: clamp(12px, 1.8vw, 16px); }
@@ -64,9 +64,10 @@
     color: var(--parchment); font-size: 20px; line-height: 1; font-family: Georgia, serif; }
   #zoom-ui button:hover { border-color: var(--amber); color: var(--lit); }
 
-  /* bottom promo bar: monetization surface demo — placeholder links, see README */
-  #promo { position: fixed; bottom: 18px; left: 0; right: 0; text-align: center; z-index: 5;
-    transition: opacity 0.4s; }
+  /* promo pills, under the title (moved up from a bottom bar 2026-08-23):
+     placeholder links, see README. #title is pointer-events:none, so the
+     pills re-enable clicks on themselves. */
+  #promo { margin-top: 16px; pointer-events: auto; transition: opacity 0.4s; }
   /* the pills step aside while a story card is open — no overlap, ever */
   body.card-open #promo { opacity: 0; pointer-events: none; }
   #promo a { display: inline-block; margin: 0 8px; padding: 7px 16px;
@@ -87,22 +88,20 @@
     <h1>AUSTIN, 1885</h1>
     <hr>
     <p>The Servant Girl Murders</p>
+    <!-- Monetization surface demo for a prospective buyer. The app link is
+         hypothetical until the Play listing exists. (The Midnight Assassin
+         book-affiliate pill was removed at the owner's request 2026-08-23.) -->
+    <div id="promo">
+      <a href="#" onclick="return false" title="Placeholder — links to the Play Store listing when the walking-tour app ships">
+        <span class="tag">walk</span>Austin 1885 — the walking tour app</a>
+      <a href="mailto:contact@austin1885.city">
+        <span class="tag">contact</span>contact@austin1885.city</a>
+    </div>
   </div>
   <div id="story-card"><span class="close" title="Close">✕</span></div>
   <div id="zoom-ui">
     <button id="zoom-in" title="Zoom in">+</button>
     <button id="zoom-out" title="Zoom out">−</button>
-  </div>
-  <!-- Monetization surface demo for a prospective buyer. The book link is the real
-       product page with a PLACEHOLDER affiliate tag (swap ?tag= for a live Amazon
-       Associates ID); the app link is hypothetical until the Play listing exists. -->
-  <div id="promo">
-    <a href="https://www.amazon.com/dp/1250069963?tag=austin1885-20" target="_blank" rel="noopener sponsored">
-      <span class="tag">read</span>The Midnight Assassin — Skip Hollandsworth</a>
-    <a href="#" onclick="return false" title="Placeholder — links to the Play Store listing when the walking-tour app ships">
-      <span class="tag">walk</span>Austin 1885 — the walking tour app</a>
-    <a href="mailto:contact@austin1885.city">
-      <span class="tag">contact</span>contact@austin1885.city</a>
   </div>
   <div id="fallback">
     <p>This page needs WebGL (any current browser has it). If you only see this
@@ -110,7 +109,9 @@
     <img src="assets/map-1887-web.jpg" alt="Bird's-eye map of Austin, 1887">
   </div>
 
-  <!-- Stop data as a global (file://-safe) -->
+  <!-- Stop data as a global (file://-safe). In this private repo the file lives
+       one level up; the public site repo carries its own copy at data/stops.js
+       (the ONE line that differs between the two index.html files). -->
   <script src="data/stops.js"
     onerror="console.warn('stops.js missing')"></script>
   <script src="js/sites.js"></script>
