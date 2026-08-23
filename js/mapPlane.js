@@ -48,8 +48,12 @@ const FRAG = /* glsl */ `
   }
 `;
 
+// Two-stage texture: a 1024-px preview (~0.2 MB) gets the scene on screen in
+// about a second; the full 4096-px map (~3 MB, needed for the 2.6x zoom) swaps
+// in silently once it arrives. Same image, same aspect, so nothing jumps.
 export function loadMapPlane(scene, onReady, onError) {
-  new THREE.TextureLoader().load('assets/map-1887-web.jpg', (texture) => {
+  const loader = new THREE.TextureLoader();
+  loader.load('assets/map-1887-lo.jpg', (texture) => {
     texture.anisotropy = 8;
 
     const aspect = texture.image.width / texture.image.height;
@@ -62,6 +66,13 @@ export function loadMapPlane(scene, onReady, onError) {
       uTime: { value: 0 },
       uAspect: { value: aspect },
     };
+
+    // now fetch the real map; when it lands, point the shader at it instead
+    loader.load('assets/map-1887-web.jpg', (full) => {
+      full.anisotropy = 8;
+      uniforms.uMap.value = full;
+      texture.dispose();
+    });
 
     const geometry = new THREE.PlaneGeometry(planeW, planeD);
     geometry.rotateX(-Math.PI / 2); // lay flat, image top toward -Z
