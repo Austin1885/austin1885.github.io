@@ -41,7 +41,7 @@ const sites = calibrated.map((sq) => {
 // don't compete with the one download the visitor actually needs to see first.
 // ?v= must match storyCard.js — bump both when the .webp files change.
 function preloadClips() {
-  sites.forEach((s) => { const img = new Image(); img.src = `assets/clips/stop-0${s.order}.webp?v=5`; });
+  sites.forEach((s) => { const img = new Image(); img.src = `assets/clips/stop-0${s.order}.webp?v=6`; });
 }
 
 let ctx;
